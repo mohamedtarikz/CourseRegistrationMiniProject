@@ -221,7 +221,7 @@ int main() {
                 }
             }
             else{
-                //show check
+                cart.ViewCart();
             }
         }
         else if(sys.isValidInput(input)){
