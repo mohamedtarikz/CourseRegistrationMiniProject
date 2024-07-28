@@ -86,13 +86,25 @@ public:
         }
     }
 
+    bool isValidInput(string id){
+        auto itr = find_if(courses.begin(),courses.end(),[id](Course course){return course.getID() == id;});
+        return (itr != courses.end());
+    }
+
     void ViewCart(){
-        cout<<fixed<<setfill('-')<<setw(30);
         for (auto course:courses) {
-            cout<<course.getNAME()<<right<<course.getPRICE()<<endl;
+            cout<<endl<<"("<<course.getID()<<")"<<course.getNAME()<<" ";
+            for (int i = 0; i < 80 - course.getNAME().size() - course.getID().size(); ++i) {
+                cout<<"-";
+            }
+            cout<<" "<<course.getPRICE()<<endl;
         }
-        cout<<"----------------"<<endl;
-        cout<<"Total:"<<right<<total_price<<endl;
+        cout<<endl<<"Total: ";
+        for (int i = 0; i < 77; ++i) {
+            cout<<" ";
+        }
+        cout<<total_price<<endl<<endl;
+        cout<<"[(C)heckout]                 [(R)emove item]              [(B)ack]\n(C/R/B)\n\n";
     }
 
     Cart(double initTotal = 0){
@@ -222,6 +234,34 @@ int main() {
             }
             else{
                 cart.ViewCart();
+                cin>>input;
+                transform(input.begin(),input.end(),input.begin(),::tolower);
+                while(input != "c" && input != "r" && input != "b"){
+                    cout<<"INVALID INPUT!! Please enter (C/R/B): ";
+                    cin>>input;
+                    transform(input.begin(),input.end(),input.begin(),::tolower);
+                }
+                if(input == "b"){
+                    continue;
+                }
+                else if(input == "r"){
+                    cout<<"Enter ID of the course you want to remove: ";
+                    cin>>input;
+                    transform(input.begin(),input.end(),input.begin(),::toupper);
+                    while(!cart.isValidInput(input)){
+                        cout<<"INVALID INPUT!! Please enter the CourseID that you want to remove: ";
+                        cin>>input;
+                        transform(input.begin(),input.end(),input.begin(),::toupper);
+                    }
+                    cart.RemCourse(input);
+                    taken[input] = 0;
+                    cout<<"Opertaion Complete!!"<<endl;
+                }
+                else{
+                    cout<<"Operation Complete!!\nHave a nice day!"<<endl;
+                    this_thread::sleep_for(chrono::seconds(2));
+                    break;
+                }
             }
         }
         else if(sys.isValidInput(input)){
