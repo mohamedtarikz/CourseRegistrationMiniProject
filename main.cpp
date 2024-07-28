@@ -3,7 +3,7 @@ using namespace std;
 
 string day[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
-class Teacher{
+class Instructor{
     string id;
     string name;
     double rating;
@@ -21,7 +21,7 @@ public:
     void setEXP(int EXP){experience = EXP;}
     int getEXP(){return experience;}
 
-    Teacher(string ID, string NAME, double RATE, int EXP){
+    Instructor(string ID, string NAME, double RATE, int EXP){
         id = ID;
         name = NAME;
         rating = RATE;
@@ -35,7 +35,7 @@ class Course{
     int num_subs;
     double price;
 public:
-    vector<Teacher> Teachers;
+    vector<Instructor> Instructors;
     vector<string> timings;
 
     void setID(string ID){id = ID;}
@@ -50,7 +50,7 @@ public:
     void setPRICE(double PRICE){price = PRICE;}
     double getPRICE(){return price;}
 
-    void AddTeacher(Teacher teacher){Teachers.emplace_back(teacher);}
+    void AddInstructor(Instructor teacher){Instructors.emplace_back(teacher);}
 
     void AddDays(string day){timings.emplace_back(day);}
 
@@ -62,7 +62,7 @@ public:
     }
 };
 
-vector<Teacher> Teachers;
+vector<Instructor> Instructors;
 vector<Course> Courses;
 
 map<string,bool> taken;
@@ -127,11 +127,11 @@ public:
                 cout<<itr.timings[i]<<", ";
             }
             cout<<itr.timings[itr.timings.size()-1]<<")"<<endl;
-            cout<<"    Teachers: (";
-            for(int i = 0; i < itr.Teachers.size() - 1; i++){
-                cout<<itr.Teachers[i].getNAME()<<", ";
+            cout<<"    Instructors: (";
+            for(int i = 0; i < itr.Instructors.size() - 1; i++){
+                cout<<itr.Instructors[i].getNAME()<<", ";
             }
-            cout<<itr.Teachers[itr.Teachers.size()-1].getNAME()<<")"<<endl;
+            cout<<itr.Instructors[itr.Instructors.size()-1].getNAME()<<")"<<endl;
             cout<<"---------------------------------------------------------\n";
         }
     }
@@ -148,12 +148,12 @@ public:
             cout<<crs->timings[i]<<", ";
         }
         cout<<crs->timings[crs->timings.size()-1]<<")"<<endl;
-        cout<<"Teachers: (";
-        for(int i = 0; i < crs->Teachers.size() - 1; i++){
-            cout<<crs->Teachers[i].getNAME()<<", ";
+        cout<<"Instructors: (";
+        for(int i = 0; i < crs->Instructors.size() - 1; i++){
+            cout<<crs->Instructors[i].getNAME()<<", ";
         }
-        cout<<crs->Teachers[crs->Teachers.size()-1].getNAME()<<")"<<endl<<endl;
-        for(auto teach:crs->Teachers){
+        cout<<crs->Instructors[crs->Instructors.size()-1].getNAME()<<")"<<endl<<endl;
+        for(auto teach:crs->Instructors){
             cout<<"Name: "<<teach.getNAME()<<endl;
             cout<<"Experience: "<<teach.getEXP()<<endl;
             cout<<"Rating: "<<teach.getRATE()<<endl;
@@ -163,40 +163,40 @@ public:
     }
 };
 
-void Init_Teachers(){
-    Teachers.emplace_back("T12","Samah Abd-ElWahed",4.65,5);
-    Teachers.emplace_back("T01","Adel Shakal",5.0,9);
-    Teachers.emplace_back("T45","Samar Shakshouka",3.8,3);
-    Teachers.emplace_back("T06","Amr Elsisi",2.9,6);
-    Teachers.emplace_back("T10","Alaa Mubarak",4.5,10);
+void Init_Instructors(){
+    Instructors.emplace_back("T12","Samah Abd-ElWahed",4.65,5);
+    Instructors.emplace_back("T01","Adel Shakal",5.0,9);
+    Instructors.emplace_back("T45","Samar Shakshouka",3.8,3);
+    Instructors.emplace_back("T06","Amr Elsisi",2.9,6);
+    Instructors.emplace_back("T10","Alaa Mubarak",4.5,10);
 }
 void Init_Courses(){
     Courses.emplace_back("CS101","Introduction to Computer Science",249.99);
-    Courses[0].AddTeacher(Teachers[0]);
-    Courses[0].AddTeacher(Teachers[2]);
+    Courses[0].AddInstructor(Instructors[0]);
+    Courses[0].AddInstructor(Instructors[2]);
     Courses[0].AddDays(day[0]);
     Courses[0].AddDays(day[4]);
     Courses.emplace_back("IT101","Introduction to Networks",549.99);
-    Courses[1].AddTeacher(Teachers[1]);
-    Courses[1].AddTeacher(Teachers[2]);
+    Courses[1].AddInstructor(Instructors[1]);
+    Courses[1].AddInstructor(Instructors[2]);
     Courses[1].AddDays(day[1]);
     Courses[1].AddDays(day[3]);
     Courses.emplace_back("AI201","Learning about Neural Networks",999.99);
-    Courses[2].AddTeacher(Teachers[3]);
-    Courses[2].AddTeacher(Teachers[4]);
-    Courses[2].AddTeacher(Teachers[0]);
+    Courses[2].AddInstructor(Instructors[3]);
+    Courses[2].AddInstructor(Instructors[4]);
+    Courses[2].AddInstructor(Instructors[0]);
     Courses[2].AddDays(day[5]);
     Courses[2].AddDays(day[6]);
     Courses.emplace_back("MA121","Partial Differential Equation",749.99);
-    Courses[3].AddTeacher(Teachers[1]);
-    Courses[3].AddTeacher(Teachers[4]);
+    Courses[3].AddInstructor(Instructors[1]);
+    Courses[3].AddInstructor(Instructors[4]);
     Courses[3].AddDays(day[0]);
     Courses[3].AddDays(day[2]);
 }
 
 int main() {
-    ////////////     Teachers     //////////////////
-    Init_Teachers();
+    ////////////     Instructors     //////////////////
+    Init_Instructors();
     ////////////     Courses     //////////////////
     Init_Courses();
     ////////////     Beginning     ////////////////
