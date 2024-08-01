@@ -31,7 +31,6 @@ public:
         experience = EXP;
     }
 };
-
 class Course{
     //info about course
     string id;
@@ -136,7 +135,6 @@ public:
         total_price = initTotal;
     }
 };
-
 class System{
 public:
     void ViewCourses(){//view all the courses not yet bought
