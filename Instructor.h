@@ -29,6 +29,7 @@ namespace course {
         void setEXP(int EXP){experience = EXP;}
         int getEXP(){return experience;}
 
+        virtual void resign() = 0;
         //class constructor
         Instructor(string ID, string NAME, double RATE, int EXP){
             id = ID;

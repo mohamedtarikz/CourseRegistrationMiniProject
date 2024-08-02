@@ -1,14 +1,9 @@
 #include <bits/stdc++.h>
-#include "Instructor.h"
 #include "Course.h"
 #include "Cart.h"
 #include "System.h"
 using namespace std;
 using namespace course;
-
-
-//initializing sample data for testing
-
 
 int main() {
     ////////////     Instructors     //////////////////
@@ -25,10 +20,9 @@ int main() {
         cin >> input;
         transform(input.begin(),input.end(),input.begin(),::toupper);
         //input validation
-        while(input != "CART" && !sys.isValidInput(input)){
-            cout<<"INVALID INPUT!! Please enter a valid ID: ";
-            cin>>input;
-            transform(input.begin(),input.end(),input.begin(),::toupper);
+        if(input != "CART" && !sys.CheckForCourse(input)){
+            cout<<"INVALID INPUT!!";
+            continue;
         }
         if(input == "CART"){//to check the cart
             if(cart.getTOTAL() == 0){//if the cart is empty check if the user wants to leave or not
@@ -86,7 +80,7 @@ int main() {
                 }
             }
         }
-        else if(sys.isValidInput(input)){
+        else if(sys.CheckForCourse(input)){
             if(taken[input]){
                 //to check if the user wants to buy a course already bought
                 cout<<"You have already purchased this course."<<endl<<endl;
