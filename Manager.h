@@ -7,6 +7,9 @@
 
 #include "bits/stdc++.h"
 #include "User.h"
+#include "System.h"
+#include "JuniorInstructor.h"
+#include "SeniorInstructor.h"
 using namespace std;
 
 namespace course {

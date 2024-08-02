@@ -7,8 +7,6 @@
 
 #include "bits/stdc++.h"
 #include "Course.h"
-#include "SeniorInstructor.h"
-#include "JuniorInstructor.h"
 using namespace std;
 
 namespace course {
