@@ -42,6 +42,14 @@ namespace course {
                 cor->AddInstructor(*ins);
             }
         }
+        void AddDayToCourse(string id,int idx){
+            auto cor = find_if(Courses.begin(),Courses.end(),[id](Course i){return i.getID() == id;});
+            if(cor == Courses.end()){
+                cout<<"No Such Course in System!"<<endl;
+                return;
+            }
+            cor->AddDays(day[idx]);
+        }
     };
 
 } // course
