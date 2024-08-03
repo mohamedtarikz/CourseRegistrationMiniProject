@@ -7,7 +7,6 @@
 
 #include "bits/stdc++.h"
 #include "User.h"
-#include "System.h"
 #include "JuniorInstructor.h"
 #include "SeniorInstructor.h"
 using namespace std;
@@ -17,7 +16,7 @@ namespace course {
     class Manager : public User {
     public:
         void welcome() override{
-            cout<<"Hello...You are signed in as Manager!"<<endl;
+            cout<<endl<<"Hello...You are signed in as Manager!"<<endl<<endl;
         }
 
         void AddInstructor(string id,string name,double rating, int exp){
@@ -30,28 +29,43 @@ namespace course {
         void AddCourse(string id, string name, double price){
             Courses.emplace_back(id,name,price);
         }
-        void AddInstructorToCourse(string idI,string idC){
+        bool AddInstructorToCourse(string idI,string idC){
             auto ins = find_if(Instructors.begin(),Instructors.end(),[idI](Instructor* i){return i->getID()==idI;});
             auto cor = find_if(Courses.begin(),Courses.end(),[idC](Course i){return i.getID() == idC;});
-            if(ins == Instructors.end()){
+            if(ins == Instructors.end() && cor == Courses.end()){
+                cout<<"No Such Instructor or Course!"<<endl;
+                return 0;
+            }
+            else if(ins == Instructors.end()){
                 cout<<"No Such Instructor in System!"<<endl;
-                return;
+                return 0;
             }
             else if(cor == Courses.end()){
                 cout<<"No Such Course in System!"<<endl;
-                return;
+                return 0;
             }
             else{
                 cor->AddInstructor(*ins);
+                return 1;
             }
         }
-        void AddDayToCourse(string id,int idx){
+        bool AddDayToCourse(string id,string day){
             auto cor = find_if(Courses.begin(),Courses.end(),[id](Course i){return i.getID() == id;});
+            auto dayItr = find_if(Days.begin(),Days.end(),[day](string i){return i == day;});
             if(cor == Courses.end()){
                 cout<<"No Such Course in System!"<<endl;
-                return;
+                return 0;
             }
-            cor->AddDays(day[idx]);
+            else if(dayItr == Days.end()){
+                cout<<"No Such Day in the week IDIOT!!"<<endl;
+                return 0;
+            }
+            cor->AddDays(day);
+            return 1;
+        }
+
+        Manager(){
+            welcome();
         }
     };
 

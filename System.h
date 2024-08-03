@@ -6,17 +6,10 @@
 #define COURSEREGISTRATIONMINIPROJECT_SYSTEM_H
 
 #include "bits/stdc++.h"
-#include "Course.h"
+#include "CourseMain.h"
 using namespace std;
 
 namespace course {
-
-    string day[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-
-    vector<Instructor*> Instructors;
-    vector<Course> Courses;
-
-    map<string,bool> taken;
 
     class System{
     public:
@@ -81,14 +74,6 @@ namespace course {
             cout<<"[(P)urchase]                        [(C)ancel]"<<endl;
         }
     };
-
-    void Init_Instructors(){
-
-    }
-    void Init_Courses(){
-
-    }
-
 } // course
 
 #endif //COURSEREGISTRATIONMINIPROJECT_SYSTEM_H

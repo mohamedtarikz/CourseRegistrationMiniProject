@@ -6,14 +6,18 @@
 #define COURSEREGISTRATIONMINIPROJECT_SENIORINSTRUCTOR_H
 
 #include "bits/stdc++.h"
-#include "Instructor.h"
+#include "User.h"
 using namespace std;
 
 namespace course {
 
-    class SeniorInstructor:public Instructor{
+    class SeniorInstructor:public Instructor, public User{
     public:
-        void resign(){
+        void welcome() override{
+            cout<<"Hello...You are signed in as Instructor!"<<endl;
+        }
+
+        void resign() override{
             cout<<"Sending Request to Manager...Please wait.";
             this_thread::sleep_for(chrono::seconds(2));
             int acc = rand()%10;

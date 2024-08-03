@@ -1,111 +1,86 @@
 #include <bits/stdc++.h>
-#include "Course.h"
-#include "Cart.h"
 #include "System.h"
+#include "Cart.h"
+#include "Manager.h"
 using namespace std;
 using namespace course;
 
-int main() {
-    ////////////     Instructors     //////////////////
-    Init_Instructors();
-    ////////////     Courses     //////////////////
-    Init_Courses();
-    ////////////     Beginning     ////////////////
-    System sys;//system instance
-    Cart cart;//cart instance
-    string input;
-    while(true){//run until checkout
-        sys.ViewCourses();//view available courses
-        cout << "Enter CourseID to Get More Info or enter 'cart' to go to checkout: ";
-        cin >> input;
-        transform(input.begin(),input.end(),input.begin(),::toupper);
-        //input validation
-        if(input != "CART" && !sys.CheckForCourse(input)){
-            cout<<"INVALID INPUT!!";
+void ManagerFunction(Manager manager, System sys){
+    int idI = 1;
+    int idC = 1;
+    while(true){
+        cout<<"1- Add an Instructor"<<endl;
+        cout<<"2- Add a new Course"<<endl;
+        cout<<"3- Print ALL Courses Info"<<endl;
+        cout<<"4- Sign out"<<endl;
+        cout<<"Enter (1,2,3,4): ";
+        string choice;
+        getline(cin,choice,'\n');
+        if(choice.size() > 1 || choice[0] < '1' || choice[0] > '6'){
+            cout<<"INVALID INPUT!!\n";
             continue;
         }
-        if(input == "CART"){//to check the cart
-            if(cart.getTOTAL() == 0){//if the cart is empty check if the user wants to leave or not
-                cout<<"You didn't purchase anything, are you sure you want to leave?(Y/N): ";
-                cin>>input;
-                transform(input.begin(),input.end(),input.begin(),::tolower);
-                while(input != "y" && input != "n"){
-                    cout<<"INVALID INPUT!! Please enter (Y/N): ";
-                    cin>>input;
-                    transform(input.begin(),input.end(),input.begin(),::tolower);
-                }
-                if(input == "y"){
-                    cout<<"Good Bye!"<<endl;
-                    break;
-                }
-                else{
-                    cout<<"Welcome back!"<<endl;
-                    continue;
-                }
-            }
-            else{
-                cart.ViewCart();//view cart
-                cin>>input;
-                transform(input.begin(),input.end(),input.begin(),::tolower);
-                //inpt validation
-                while(input != "c" && input != "r" && input != "b"){
-                    cout<<"INVALID INPUT!! Please enter (C/R/B): ";
-                    cin>>input;
-                    transform(input.begin(),input.end(),input.begin(),::tolower);
-                }
-                if(input == "b"){
-                    continue;
-                    //to cancel checkout
-                }
-                else if(input == "r"){//to remove an item from the cart
-                    cout<<"Enter ID of the course you want to remove: ";
-                    cin>>input;
-                    transform(input.begin(),input.end(),input.begin(),::toupper);
-                    //inpt validation
-                    while(!cart.isValidInput(input)){
-                        cout<<"INVALID INPUT!! Please enter the CourseID that you want to remove: ";
-                        cin>>input;
-                        transform(input.begin(),input.end(),input.begin(),::toupper);
-                    }
-                    //remove course
-                    cart.RemCourse(input);
-                    //declare as not bought
-                    taken[input] = 0;
-                    cout<<"Opertaion Complete!!"<<endl;
-                }
-                else{//to pay and checkout
-                    cout<<"Operation Complete!!\nHave a nice day!"<<endl;
-                    this_thread::sleep_for(chrono::seconds(2));
-                    break;
-                }
-            }
+        if(choice == "1"){
+            string ID = to_string(idI),name;
+            double rating;
+            int exp;
+            cout<<"Name: ";
+            getline(cin,name,'\n');
+            cout<<"Rating: ";
+            cin>>rating;
+            cout<<"Experience: ";
+            cin>>exp;
+            manager.AddInstructor(ID,name,rating,exp);
+            idI++;
+            cin.ignore();
         }
-        else if(sys.CheckForCourse(input)){
-            if(taken[input]){
-                //to check if the user wants to buy a course already bought
-                cout<<"You have already purchased this course."<<endl<<endl;
-                continue;
+        else if(choice == "2"){
+            string ID = to_string(idC),name;
+            double price;
+            cout<<"Name: ";
+            getline(cin,name,'\n');
+            cout<<"Price: ";
+            cin>>price;
+            manager.AddCourse(ID,name,price);
+            cout<<endl;
+            int numIns;
+            cout<<"Number of Instructors: ";
+            cin>>numIns;
+            string ins;
+            cin.ignore();
+            for (int i = 0; i < numIns; ++i) {
+                cout<<"Enter InstructorID: ";
+                getline(cin,ins,'\n');
+                if(!manager.AddInstructorToCourse(ins,ID))
+                    i--;
             }
-            cout<<"\n//////////////////////////////////////////////////\n"<<endl;
-            sys.ViewCertianCourse(input);//view info about a certain course
-            cout<<"(P/C)\n";
-            string cnfirm;
-            cin>>cnfirm;
-            transform(cnfirm.begin(),cnfirm.end(),cnfirm.begin(),::tolower);
-            //input validation
-            while(cnfirm != "p" && cnfirm != "c"){
-                cout<<"INVALID INPUT!! Please enter (P/C): ";
-                cin>>cnfirm;
-                transform(cnfirm.begin(),cnfirm.end(),cnfirm.begin(),::tolower);
+            int numDays;
+            cout<<"Number of Days: ";
+            cin>>numDays;
+            string day;
+            cin.ignore();
+            for (int i = 0; i < numDays; ++i) {
+                cout<<"Enter Day for the Course: ";
+                getline(cin,day,'\n');
+                if(!manager.AddDayToCourse(ID,day))
+                    i--;
             }
-            if(cnfirm == "p"){//if the user wants to purchace course
-                //add course to cart
-                cart.AddCourse(input);
-                //declare as already bought
-                taken[input] = 1;
-                cout<<"Operation Complete!!"<<endl<<endl;
-            }
+            idC++;
+        }
+        else if(choice == "3"){
+            sys.ViewCourses();
+        }
+        else{
+            manager.signout();
+            break;
         }
     }
+}
+
+int main() {
+    Init_Days();
+    Manager manager;
+    System sys;
+    ManagerFunction(manager, sys);
     return 0;
 }

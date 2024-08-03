@@ -6,13 +6,17 @@
 #define COURSEREGISTRATIONMINIPROJECT_JUNIORINSTRUCTOR_H
 
 #include "bits/stdc++.h"
-#include "Instructor.h"
+#include "User.h"
 using namespace std;
 
 namespace course {
 
-    class JuniorInstructor:public Instructor {
+    class JuniorInstructor:public Instructor, public User{
     public:
+        void welcome() override{
+            cout<<"Hello...You are signed in as Instructor!"<<endl;
+        }
+
         void resign() override{
             cout<<"Processing reignation request..."<<endl;
             this_thread::sleep_for(chrono::seconds(2));

@@ -6,7 +6,7 @@
 #define COURSEREGISTRATIONMINIPROJECT_USER_H
 
 #include "bits/stdc++.h"
-//#include "System.h"
+#include "CourseMain.h"
 using namespace std;
 
 namespace course {
@@ -20,7 +20,6 @@ namespace course {
         void signout(){
             cout<<"Shutting Down..."<<endl<<endl;
             this_thread::sleep_for(chrono::seconds(1));
-            exit(0);
         }
     };
 
