@@ -9,6 +9,7 @@
 #include "Instructor.h"
 #include "Course.h"
 using namespace std;
+using namespace course;
 
 string dayArr[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 vector<string> Days;
@@ -23,5 +24,8 @@ vector<course::Instructor*> Instructors;
 vector<course::Course> Courses;
 
 map<string,bool> taken;
+int numCourses = 0;
+int numInstructor = 0;
+
 
 #endif //COURSEREGISTRATIONMINIPROJECT_COURSEMAIN_H

@@ -7,6 +7,8 @@
 
 #include "bits/stdc++.h"
 #include "CourseMain.h"
+#include "JuniorInstructor.h"
+#include "SeniorInstructor.h"
 using namespace std;
 
 namespace course {
@@ -74,6 +76,13 @@ namespace course {
             cout<<"[(P)urchase]                        [(C)ancel]"<<endl;
         }
     };
+
+    void InitInstructors(){
+        Instructors.push_back(new JuniorInstructor(to_string(++numInstructor),"Manar El-Sharbatly",3.7,4));
+        Instructors.push_back(new SeniorInstructor(to_string(++numInstructor),"Saed El-Armot",4.2,5));
+        Instructors.push_back(new SeniorInstructor(to_string(++numInstructor),"Entsar Mrato",5.0,10));
+        Instructors.push_back(new JuniorInstructor(to_string(++numInstructor),"3am Samir",3.2,2));
+    }
 } // course
 
 #endif //COURSEREGISTRATIONMINIPROJECT_SYSTEM_H
