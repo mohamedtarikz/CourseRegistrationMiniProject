@@ -18,7 +18,7 @@ namespace course {
         }
 
         void signout(){
-            cout<<"Shutting Down..."<<endl<<endl;
+            cout<<"Signing out..."<<endl<<endl;
             this_thread::sleep_for(chrono::seconds(1));
         }
     };

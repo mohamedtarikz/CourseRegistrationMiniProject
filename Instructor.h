@@ -6,10 +6,11 @@
 #define COURSEREGISTRATIONMINIPROJECT_INSTRUCTOR_H
 
 #include "bits/stdc++.h"
+#include "User.h"
 using namespace std;
 
-namespace course {
-    class Instructor{
+namespace course{
+    class Instructor: public User{
         //info about instructor
         string id;
         string name;
@@ -29,7 +30,12 @@ namespace course {
         void setEXP(int EXP){experience = EXP;}
         int getEXP(){return experience;}
 
+        void welcome() override{
+            cout<<"Hello...You are signed in as Instructor!"<<endl;
+        }
+
         virtual void resign() = 0;
+        virtual void AskForRaise() = 0;
         //class constructor
         Instructor(string ID, string NAME, double RATE, int EXP){
             id = ID;

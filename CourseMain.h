@@ -9,16 +9,8 @@
 #include "Instructor.h"
 #include "Course.h"
 using namespace std;
-using namespace course;
 
-string dayArr[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-vector<string> Days;
-
-void Init_Days(){
-    for (int i = 0; i < 7; ++i) {
-        Days.push_back(dayArr[i]);
-    }
-}
+vector<string> Days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
 vector<course::Instructor*> Instructors;
 vector<course::Course> Courses;

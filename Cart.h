@@ -62,7 +62,7 @@ namespace course {
                 cout<<" ";
             }
             cout<<total_price<<endl<<endl;
-            cout<<"[(C)heckout]                 [(R)emove item]              [(B)ack]\n(C/R/B)\n\n";
+            cout<<"[(C)heckout]                 [(R)emove item]              [(B)ack]\nEnter(C/R/B): ";
         }
 
         //class constructor

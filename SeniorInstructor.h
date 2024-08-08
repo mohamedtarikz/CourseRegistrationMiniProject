@@ -11,17 +11,20 @@ using namespace std;
 
 namespace course {
 
-    class SeniorInstructor:public Instructor, public User{
+    class SeniorInstructor:public Instructor{
     public:
-        void welcome() override{
-            cout<<"Hello...You are signed in as Instructor!"<<endl;
+        void resign() override{
+            cout<<"Sending Request to Manager...Please wait."<<endl;
+            this_thread::sleep_for(chrono::seconds(2));
+            int acc = int(rand())%10;
+            cout<<(acc < 5 ? "Resignation request denied.":"Resignation request accepted.")<<endl;
         }
 
-        void resign() override{
+        void AskForRaise() override{
             cout<<"Sending Request to Manager...Please wait.";
             this_thread::sleep_for(chrono::seconds(2));
-            int acc = rand()%10;
-            cout<<(acc < 5 ? "Resignation request denied.":"Resignation request accepted.")<<endl;
+            int acc = int(rand())%10;
+            cout<<(acc < 2 ? "Raise request denied.":"Raise request accepted...Hoooraaay!!")<<endl;
         }
         SeniorInstructor(string ID,string NAME,double RATE,int EXP): Instructor(ID,NAME,RATE,EXP){
             srand(time(0));
