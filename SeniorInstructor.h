@@ -13,11 +13,25 @@ namespace course {
 
     class SeniorInstructor:public Instructor{
     public:
-        void resign() override{
+        void resign(string id) override{
             cout<<"Sending Request to Manager...Please wait."<<endl;
             this_thread::sleep_for(chrono::seconds(2));
             int acc = int(rand())%10;
-            cout<<(acc < 5 ? "Resignation request denied.":"Resignation request accepted.")<<endl;
+            if(acc < 5){
+                cout<<"Resignation request denied."<<endl;
+            }
+            else{
+                cout<<"Resignation request accepted."<<endl;
+                for (auto course:Courses) {
+                    auto itr = find_if(course.Instructors.begin(), course.Instructors.end(),[id](Instructor* ins){return ins->getID() == id;});
+                    if (itr != course.Instructors.end()) {
+                        cout<<endl<<"Good Bye "<<(*itr)->getNAME()<<endl<<endl;
+                        course.Instructors.erase(itr);
+                    }
+                }
+                auto instructorItr = find_if(Instructors.begin(), Instructors.end(),[id](Instructor* ins){return ins->getID() == id;});
+                Instructors.erase(instructorItr);
+            }
         }
 
         void AskForRaise() override{

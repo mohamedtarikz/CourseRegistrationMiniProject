@@ -34,7 +34,7 @@ namespace course{
             cout<<"Hello...You are signed in as Instructor!"<<endl;
         }
 
-        virtual void resign() = 0;
+        virtual void resign(string id) = 0;
         virtual void AskForRaise() = 0;
         //class constructor
         Instructor(string ID, string NAME, double RATE, int EXP){

@@ -148,14 +148,6 @@ void NormalUI(User& user, System& sys, Cart& cart){
     }
 }
 void InstructorUI(Instructor*& instructor, System& sys){
-    instructor->welcome();
-    cout<<"Please Enter your ID: ";
-    string ID;
-    getline(cin,ID);
-    while(!sys.CheckForInstructor(ID)){
-        cout<<"No Such InstructorID in System!! Please enter valid ID: ";
-        getline(cin,ID);
-    }
     cout<<"1- Request Resignation."<<endl;
     cout<<"2- Request Raise."<<endl;
     cout<<"3- Sign out."<<endl;
@@ -167,7 +159,7 @@ void InstructorUI(Instructor*& instructor, System& sys){
         getline(cin,choice);
     }
     if(choice == "1"){
-        instructor->resign();
+        instructor->resign(instructor->getID());
     }
     else if(choice == "2"){
         instructor->AskForRaise();
@@ -203,8 +195,16 @@ int main() {
             delete cart;
         }
         else if(choice == "3"){
-            Instructor* instructor;
-            InstructorUI(instructor,sys);
+            cout<<endl<<"Please Enter your ID: ";
+            string ID;
+            getline(cin,ID);
+            while(!sys.CheckForInstructor(ID)){
+                cout<<"No Such InstructorID in System!! Please enter valid ID: ";
+                getline(cin,ID);
+            }
+            auto instructor = find_if(Instructors.begin(),Instructors.end(),[ID](Instructor* ins){return ins->getID() == ID;});
+            cout<<endl<<"Hello "<<(*instructor)->getNAME()<<endl<<endl;
+            InstructorUI(*instructor,sys);
         }
         else if(choice == "4"){
             cout<<"Good Bye!"<<endl;

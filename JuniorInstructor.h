@@ -13,10 +13,19 @@ namespace course {
 
     class JuniorInstructor:public Instructor{
     public:
-        void resign() override{
-            cout<<"Processing reignation request..."<<endl;
+        void resign(string id) override{
+            cout<<"Processing resignation request..."<<endl;
             this_thread::sleep_for(chrono::seconds(2));
             cout<<"Resignation request accepted!"<<endl;
+            for (auto course:Courses) {
+                auto itr = find_if(course.Instructors.begin(), course.Instructors.end(), [id](Instructor* ins){return ins->getID() == id;});
+                if (itr != course.Instructors.end()) {
+                    cout<<endl<<"Good Bye "<<(*itr)->getNAME()<<endl<<endl;
+                    course.Instructors.erase(itr);
+                }
+            }
+            auto instructorItr = find_if(Instructors.begin(), Instructors.end(),[id](Instructor* ins){return ins->getID() == id;});
+            Instructors.erase(instructorItr);
         }
 
         void AskForRaise() override{

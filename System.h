@@ -38,8 +38,10 @@ namespace course {
                 cout<<itr.timings[itr.timings.size()-1]<<")"<<endl;
                 //print the instructors' names
                 cout<<"    Instructors: (";
-                for(int i = 0; i < itr.Instructors.size() - 1; i++){
-                    cout<<itr.Instructors[i]->getNAME()<<", ";
+                for(auto ins:itr.Instructors){
+                    if(ins->getNAME() == itr.Instructors[itr.Instructors.size()-1]->getNAME())
+                        continue;
+                    cout<<ins->getNAME()<<", ";
                 }
                 cout<<itr.Instructors[itr.Instructors.size()-1]->getNAME()<<")"<<endl;
                 cout<<"---------------------------------------------------------\n\n";
