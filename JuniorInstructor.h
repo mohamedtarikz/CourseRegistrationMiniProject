@@ -17,14 +17,14 @@ namespace course {
             cout<<"Processing resignation request..."<<endl;
             this_thread::sleep_for(chrono::seconds(2));
             cout<<"Resignation request accepted!"<<endl;
-            for (auto course:Courses) {
-                auto itr = find_if(course.Instructors.begin(), course.Instructors.end(), [id](Instructor* ins){return ins->getID() == id;});
-                if (itr != course.Instructors.end()) {
-                    cout<<endl<<"Good Bye "<<(*itr)->getNAME()<<endl<<endl;
-                    course.Instructors.erase(itr);
+            for (int i = 0; i < Courses.size(); i++) {
+                auto itr = find_if(Courses[i].Instructors.begin(), Courses[i].Instructors.end(), [id](Instructor* ins)->bool{return ins->getID() == id;});
+                if (itr != Courses[i].Instructors.end()) {
+                    Courses[i].Instructors.erase(itr);
                 }
             }
             auto instructorItr = find_if(Instructors.begin(), Instructors.end(),[id](Instructor* ins){return ins->getID() == id;});
+            cout<<endl<<"Good Bye "<<(*instructorItr)->getNAME()<<endl<<endl;
             Instructors.erase(instructorItr);
         }
 
